@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe "Inventory" do
+RSpec.describe Inventory do
   context "Create" do
     it 'valid attributes' do
       inventory = FactoryBot.create(:inventory, name: "samsung", value: 10.0, quantity: 4)
