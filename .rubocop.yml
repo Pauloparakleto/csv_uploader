@@ -14,6 +14,7 @@ AllCops:
     - 'tmp/**/*'
     - 'app/views/**/*'
     - 'config/environments/*'
+    - 'config/initializers/*'
     - 'node_modules/**/*'
 
 # Metrics Cops
