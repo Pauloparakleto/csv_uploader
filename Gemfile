@@ -25,6 +25,9 @@ gem "jbuilder", "~> 2.7"
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# For documentation
+gem "rswag"
+
 gem "rubocop-rails", require: false
 gem "rubocop-performance", require: false
 gem "rubocop-rspec", require: false
