@@ -53,6 +53,8 @@ Metrics/BlockLength:
     - draw
     - configure
     - group
+    - define
+    - factory
 
 # Style Cops
 
