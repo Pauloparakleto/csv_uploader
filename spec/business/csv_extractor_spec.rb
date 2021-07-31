@@ -103,24 +103,22 @@ RSpec.describe CsvExtractor do
     context "when attributes have index" do
       it "first" do
         index = 1
-        path = "spec/support/input_valid.csv"
         data = CSV.read("spec/support/input_valid.csv")
         price = data[1][5].to_i
-        result = described_class.new(path: path).attributes(index)
+        result = described_class.new(path: "spec/support/input_valid.csv").attributes(index)
 
         expect(result[:price]).to eq(price)
       end
 
       it "last" do
         index = 12
-        path = "spec/support/input_valid.csv"
         data = CSV.read("spec/support/input_valid.csv")
         price = data[12][5].to_i
-        result = described_class.new(path: path).attributes(index)
-
+        result = described_class.new(path: "spec/support/input_valid.csv").attributes(index)
         expect(result[:price]).to eq(price)
       end
     end
+
     context "when extract attributes to collection" do
       it "manufacturers" do
         path = "spec/support/input_valid.csv"
