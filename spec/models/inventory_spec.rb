@@ -114,4 +114,14 @@ RSpec.describe Inventory, type: :model do
       end
     end
   end
+
+  describe "Attach IO file" do
+    context "when read" do
+      it "valid" do
+        inventory = FactoryBot.create(:inventory)
+        inventory.csv_file.attach(io: File.open("spec/support/input_valid.csv"), filename: "input_valid.csv")
+        expect(inventory.csv_file).to be_truthy
+      end
+    end
+  end
 end
