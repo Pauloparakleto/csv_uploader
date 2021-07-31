@@ -3,7 +3,6 @@ require "csv"
 RSpec.describe CsvExtractor do
   describe "Valid" do
     context "when extract" do
-
       it "file path to valid" do
         csv = CSV.read("spec/support/input_valid.csv")
         result = []
@@ -42,7 +41,6 @@ RSpec.describe CsvExtractor do
 
   describe "Invalid" do
     context "when extract" do
-
       it "file path to invalid" do
         csv = CSV.read("spec/support/input_invalid.csv")
         result = []
