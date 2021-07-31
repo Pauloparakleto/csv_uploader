@@ -14,7 +14,6 @@ RSpec.describe CsvExtractor do
 
       it "in csv class" do
         path = "spec/support/input_valid.csv"
-        data = CSV.read("spec/support/input_valid.csv")
         result = described_class.new(path: path).valid?
         expect(result).to eq(true)
       end
