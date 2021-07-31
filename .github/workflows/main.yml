@@ -38,7 +38,7 @@ jobs:
           bundle exec rails active_storage:install
           bundle exec rails db:migrate
           bundle install
-          bundle exec rspec
+          bundle exec rake
      # - name: Rubocop Check
       #  run: |
        #   bundle exec rubocop
