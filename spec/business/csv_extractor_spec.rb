@@ -24,7 +24,7 @@ RSpec.describe CsvExtractor do
     context "when extract" do
 
       it "file path to invalid" do
-        csv = described_class.read("spec/support/input_invalid.csv")
+        csv = CSV.read("spec/support/input_invalid.csv")
         result = []
         csv.each { |i| result << true if i.any? nil }
 
