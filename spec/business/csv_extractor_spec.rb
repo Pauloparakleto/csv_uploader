@@ -1,11 +1,11 @@
 require "rails_helper"
 require "csv"
-RSpec.describe CSV do
+RSpec.describe CsvExtractor do
   describe "Valid" do
     context "when extract " do
 
       it "file path to valid" do
-        csv = described_class.read("spec/support/input_valid.csv")
+        csv = CSV.read("spec/support/input_valid.csv")
         result = []
         csv.each { |i| result << true if i.any? nil }
 
