@@ -19,6 +19,12 @@ RSpec.describe CsvExtractor do
     end
 
     context "when build" do
+      it "count" do
+        path = "spec/support/input_valid.csv"
+        result = described_class.new(path: path).build
+        expect(result.length).to eq(12)
+      end
+
       it "first instance of inventory" do
         path = "spec/support/input_valid.csv"
         result = described_class.new(path: path).build
