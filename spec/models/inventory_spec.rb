@@ -67,7 +67,8 @@ RSpec.describe Inventory, type: :model do
       end
 
       it "nil quantity message" do
-        expect(invalid_inventory("quantity").errors.messages.first.second).to eq(["A quantidade não pode ficar em branco"])
+        expect(invalid_inventory("quantity").errors.messages.first.second)
+          .to eq(["A quantidade não pode ficar em branco"])
       end
 
       it "nil manufacturer" do
@@ -75,7 +76,8 @@ RSpec.describe Inventory, type: :model do
       end
 
       it "nil manufacturer message" do
-        expect(invalid_inventory("manufacturer").errors.messages.first.second).to eq(["O nome do fabricante não pode ficar em branco"])
+        expect(invalid_inventory("manufacturer").errors.messages.first.second)
+          .to eq(["O nome do fabricante não pode ficar em branco"])
       end
 
       it "nil model" do
@@ -99,7 +101,8 @@ RSpec.describe Inventory, type: :model do
       end
 
       it "nil carrier_plan_type message" do
-        expect(invalid_inventory("carrier_plan_type").errors.messages.first.second).to eq(["O plano do aparelho não pode ficar em branco"])
+        expect(invalid_inventory("carrier_plan_type").errors.messages.first.second)
+          .to eq(["O plano do aparelho não pode ficar em branco"])
       end
 
       it "nil price" do
