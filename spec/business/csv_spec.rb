@@ -3,9 +3,26 @@ require "csv"
 RSpec.describe CSV do
   describe "Valid" do
     context "when extract " do
-      it "file path" do
+
+      it "file path to valid" do
         csv = described_class.read("spec/support/input_valid.csv")
-        expect(csv).to be_truthy
+        result = []
+        csv.each { |i| result << true if i.any? nil }
+
+        expect(result.any?(true)).to eq(false)
+      end
+    end
+  end
+
+  describe "Invalid" do
+    context "when extract " do
+
+      it "file path to invalid" do
+        csv = described_class.read("spec/support/input_invalid.csv")
+        result = []
+        csv.each { |i| result << true if i.any? nil }
+
+        expect(result.any?(true)).to eq(true)
       end
     end
   end
