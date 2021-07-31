@@ -30,6 +30,12 @@ RSpec.describe CsvExtractor do
 
         expect(result.any?(true)).to eq(true)
       end
+
+      it "in csv class" do
+        data = CSV.read("spec/support/input_invalid.csv")
+        result = described_class.new(array: data).valid?
+        expect(result).to eq(false)
+      end
     end
   end
 end
