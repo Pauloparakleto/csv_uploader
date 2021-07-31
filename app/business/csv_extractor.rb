@@ -16,17 +16,32 @@ class CsvExtractor
 
   def build
     array = []
-    csv_data.each do
-      array << Inventory.create(attributes)
-    end
+    index = 1
+    build_inventories(array, index)
     array
   end
 
-  def attributes
+  def build_inventories(array, index)
+    csv_data.each do |table|
+      next if table[0] == "manufacturer"
+
+      array << Inventory.create(attributes(index))
+      index += 1
+    end
+  end
+
+  def attributes(index)
     csv_data
-    {
-      name: "MyString", value: "MyString", quantity: "MyString", manufacturer: "MyString", model: "MyString",
-      color: "MyString", carrier_plan_type: "MyString", price: 999.98
-    }
+    attribute(index)
+  end
+
+  def attribute(index)
+    { name: "MyString", value: "MyString", manufacturer: csv_data[1][0],
+      model: model_att(index), color: csv_data[index][2], carrier_plan_type: csv_data[index][3],
+      quantity: csv_data[index][4], price: csv_data[index][5].to_i }
+  end
+
+  def model_att(index)
+    csv_data[index][1]
   end
 end
