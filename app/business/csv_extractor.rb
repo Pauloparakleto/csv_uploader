@@ -1,3 +1,4 @@
+require "csv"
 class CsvExtractor
   def initialize(path: nil)
     @path = path
@@ -21,15 +22,6 @@ class CsvExtractor
     array
   end
 
-  def build_inventories(array, index)
-    csv_data.each do |table|
-      next if table[0] == "manufacturer"
-
-      array << Inventory.create(attributes(index))
-      index += 1
-    end
-  end
-
   def attributes(index)
     csv_data
     attribute(index)
@@ -43,5 +35,16 @@ class CsvExtractor
 
   def model_att(index)
     csv_data[index][1]
+  end
+end
+
+private
+
+def build_inventories(array, index)
+  csv_data.each do |table|
+    next if table[0] == "manufacturer"
+
+    array << Inventory.create(attributes(index))
+    index += 1
   end
 end
