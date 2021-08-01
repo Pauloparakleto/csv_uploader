@@ -19,7 +19,8 @@ class CsvExtractor
   end
 
   def build
-    return nil if !valid?
+    return nil unless valid?
+
     array = []
     index = 1
     build_inventories(array, index)
