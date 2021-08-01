@@ -102,74 +102,73 @@ RSpec.describe CsvExtractor do
 
     context "when attributes have index" do
       it "first" do
-        index = 1
         data = CSV.read("spec/support/input_valid.csv")
         price = data[1][5].to_i
-        result = described_class.new(path: "spec/support/input_valid.csv").attributes(index)
-
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        result = described_class.new(path: params[:csv_file]).attributes(1)
         expect(result[:price]).to eq(price)
       end
 
       it "last" do
-        index = 12
         data = CSV.read("spec/support/input_valid.csv")
         price = data[12][5].to_i
-        result = described_class.new(path: "spec/support/input_valid.csv").attributes(index)
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        result = described_class.new(path: params[:csv_file]).attributes(12)
         expect(result[:price]).to eq(price)
       end
     end
 
     context "when extract attributes to collection" do
       it "manufacturers" do
-        path = "spec/support/input_valid.csv"
         data = CSV.read("spec/support/input_valid.csv")
         manufacturer_second = data[2][0]
-        result = described_class.new(path: path).build
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        result = described_class.new(path: params[:csv_file]).build
 
         expect(result[1].manufacturer).to eq(manufacturer_second)
       end
 
       it "model" do
-        path = "spec/support/input_valid.csv"
         data = CSV.read("spec/support/input_valid.csv")
         model_second = data[2][1]
-        result = described_class.new(path: path).build
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        result = described_class.new(path: params[:csv_file]).build
 
         expect(result[1].model).to eq(model_second)
       end
 
       it "color" do
-        path = "spec/support/input_valid.csv"
         data = CSV.read("spec/support/input_valid.csv")
         color_second = data[2][2]
-        result = described_class.new(path: path).build
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        result = described_class.new(path: params[:csv_file]).build
 
         expect(result[1].color).to eq(color_second)
       end
 
       it "carrier_plan_type" do
-        path = "spec/support/input_valid.csv"
         data = CSV.read("spec/support/input_valid.csv")
         carrier_plan_type_second = data[2][3]
-        result = described_class.new(path: path).build
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        result = described_class.new(path: params[:csv_file]).build
 
         expect(result[1].carrier_plan_type).to eq(carrier_plan_type_second)
       end
 
       it "quantity" do
-        path = "spec/support/input_valid.csv"
         data = CSV.read("spec/support/input_valid.csv")
         quantity_second = data[2][4].to_i
-        result = described_class.new(path: path).build
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        result = described_class.new(path: params[:csv_file]).build
 
         expect(result[1].quantity).to eq(quantity_second)
       end
 
       it "price" do
-        path = "spec/support/input_valid.csv"
         data = CSV.read("spec/support/input_valid.csv")
         price_second = data[2][5].to_i
-        result = described_class.new(path: path).build
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        result = described_class.new(path: params[:csv_file]).build
 
         expect(result[1].price).to eq(price_second)
       end
