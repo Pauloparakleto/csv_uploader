@@ -186,8 +186,8 @@ RSpec.describe CsvExtractor do
       end
 
       it "in csv class" do
-        path = "spec/support/input_invalid.csv"
-        result = described_class.new(path: path).valid?
+        params = { csv_file: fixture_file_upload("input_invalid.csv") }
+        result = described_class.new(path: params[:csv_file]).valid?
         expect(result).to eq(false)
       end
 
@@ -207,6 +207,12 @@ RSpec.describe CsvExtractor do
     context "when build" do
       it "nil file" do
         path = nil
+        result = described_class.new(path: path).build
+        expect(result).to eq(nil)
+      end
+
+      it "empty file" do
+        path = ""
         result = described_class.new(path: path).build
         expect(result).to eq(nil)
       end
