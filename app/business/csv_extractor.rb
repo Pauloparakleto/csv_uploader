@@ -1,10 +1,13 @@
 require "csv"
+
 class CsvExtractor
   def initialize(path: nil)
     @path = path
   end
 
   def valid?
+    return false if @path.blank?
+
     data = csv_data
     result = []
     data.each { |i| result << false if i.any? nil }
@@ -16,6 +19,8 @@ class CsvExtractor
   end
 
   def build
+    return nil unless valid?
+
     array = []
     index = 1
     build_inventories(array, index)
