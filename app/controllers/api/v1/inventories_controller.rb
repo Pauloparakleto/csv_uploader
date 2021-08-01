@@ -8,7 +8,17 @@ module Api
 
       def create
         @inventories = CsvExtractor.new(path: params[:csv_file]).build
-        render json: @inventories, status: :created
+        render_response
+      end
+
+      private
+
+      def render_response
+        if @inventories
+          render json: @inventories, status: :created
+        else
+          render json: nil, status: :unprocessable_entity
+        end
       end
     end
   end
