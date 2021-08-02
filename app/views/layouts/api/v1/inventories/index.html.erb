@@ -1,5 +1,15 @@
 <h1>Inventário da Loja</h1>
 <section>
+  <%= search_form_for @q, url: api_v1_inventories_path do |f| %>
+
+    # Search if the name field contains...
+    <%= f.label :manufacturer_or_model_or_carrier_plan_type_cont %>
+    <%= f.search_field :manufacturer_or_model_or_carrier_plan_type_cont %>
+
+    <%= f.submit %>
+  <% end %>
+</section>
+<section>
   <table>
     <tr>
       <th>Fabricante</th>
