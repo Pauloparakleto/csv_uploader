@@ -21,6 +21,8 @@ class CsvExtractor
   def build
     return nil unless valid?
 
+    return update if Inventory.count.eql? 12
+
     array = []
     index = 1
     build_inventories(array, index)

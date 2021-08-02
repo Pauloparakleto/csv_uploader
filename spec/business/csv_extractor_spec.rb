@@ -12,6 +12,48 @@ def last_inventory_price_before_update
 end
 
 RSpec.describe CsvExtractor do
+  describe "Create/Update both using build" do
+    context "when update" do
+      before do
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        described_class.new(path: params[:csv_file]).build
+      end
+
+      it "count 12" do
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        described_class.new(path: params[:csv_file]).build
+        expect(Inventory.count).to eq(12)
+      end
+
+      it "update first inventory" do
+        params_update = { csv_file: fixture_file_upload("input_valid_update.csv") }
+        first_inventory_price = Inventory.first.price.to_i
+        described_class.new(path: params_update[:csv_file]).build
+        expect(first_inventory_price).not_to eq(Inventory.first.reload.price.to_i)
+      end
+
+      it "update second inventory" do
+        params = { csv_file: fixture_file_upload("input_valid_update.csv") }
+        second_inventory_price = Inventory.second.price.to_i
+        described_class.new(path: params[:csv_file]).build
+        expect(second_inventory_price).not_to eq(Inventory.second.reload.price.to_i)
+      end
+
+      it "update last inventory" do
+        params = { csv_file: fixture_file_upload("input_valid_update.csv") }
+        last_inventory_price_before = last_inventory_price_before_update
+        described_class.new(path: params[:csv_file]).build
+        expect(last_inventory_price_before).not_to eq(last_inventory_price)
+      end
+
+      it "update invalid inventory" do
+        params_update = { csv_file: fixture_file_upload("input_invalid.csv") }
+        result = described_class.new(path: params_update[:csv_file]).build
+        expect(result).to be_nil
+      end
+    end
+  end
+
   describe "Update" do
     context "when valid" do
       before do
