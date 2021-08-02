@@ -1,6 +1,72 @@
 require "rails_helper"
 require "csv"
+
+def last_inventory_price
+  Inventory.where(manufacturer: "Apple", model: "iPhone SE 16GB", color: "Rose",
+                  carrier_plan_type: "pre", price: 1599).first.price.to_i
+end
+
+def last_inventory_price_before_update
+  Inventory.where(manufacturer: "Apple", model: "iPhone SE 16GB", color: "Space Gray",
+                  carrier_plan_type: "pre", price: 1499).first.price.to_i
+end
+
 RSpec.describe CsvExtractor do
+  describe "Update" do
+    context "when valid" do
+      before do
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        described_class.new(path: params[:csv_file]).build
+      end
+
+      it "count 12" do
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        described_class.new(path: params[:csv_file]).update
+        expect(Inventory.count).to eq(12)
+      end
+
+      it "update first inventory" do
+        params_update = { csv_file: fixture_file_upload("input_valid_update.csv") }
+        first_inventory_price = Inventory.first.price.to_i
+        described_class.new(path: params_update[:csv_file]).update
+        expect(first_inventory_price).not_to eq(Inventory.first.reload.price.to_i)
+      end
+
+      it "update second inventory" do
+        params = { csv_file: fixture_file_upload("input_valid_update.csv") }
+        second_inventory_price = Inventory.second.price.to_i
+        described_class.new(path: params[:csv_file]).update
+        expect(second_inventory_price).not_to eq(Inventory.second.reload.price.to_i)
+      end
+
+      it "update last inventory" do
+        params = { csv_file: fixture_file_upload("input_valid_update.csv") }
+        last_inventory_price_before = last_inventory_price_before_update
+        described_class.new(path: params[:csv_file]).update
+        expect(last_inventory_price_before).not_to eq(last_inventory_price)
+      end
+    end
+
+    context "when invalid" do
+      before do
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        described_class.new(path: params[:csv_file]).build
+      end
+
+      it "count 12" do
+        params = { csv_file: fixture_file_upload("input_invalid.csv") }
+        described_class.new(path: params[:csv_file]).update
+        expect(Inventory.count).to eq(12)
+      end
+
+      it "update first inventory" do
+        params_update = { csv_file: fixture_file_upload("input_invalid.csv") }
+        result = described_class.new(path: params_update[:csv_file]).update
+        expect(result).to be_nil
+      end
+    end
+  end
+
   describe "Valid" do
     context "when extract" do
       it "file path to valid" do

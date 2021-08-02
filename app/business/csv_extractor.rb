@@ -27,13 +27,36 @@ class CsvExtractor
     array
   end
 
+  def update
+    return nil unless valid?
+
+    @id = Inventory.first.id
+    @index = 1
+    array = []
+    update_inventories(array)
+  end
+
+  def update_inventories(array)
+    csv_data.each do |table|
+      next if table[0] == "manufacturer"
+
+      update_each_and_find_next(array)
+    end
+  end
+
+  def update_each_and_find_next(array)
+    array << Inventory.find(@id).update(attributes(@index))
+    @id += 1
+    @index += 1
+  end
+
   def attributes(index)
     csv_data
     attribute(index)
   end
 
   def attribute(index)
-    { name: "MyString", value: "MyString", manufacturer: csv_data[1][0],
+    { name: "MyString", value: "MyString", manufacturer: csv_data[index][0],
       model: model_att(index), color: csv_data[index][2], carrier_plan_type: csv_data[index][3],
       quantity: csv_data[index][4], price: csv_data[index][5].to_i }
   end
