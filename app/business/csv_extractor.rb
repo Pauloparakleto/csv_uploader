@@ -53,7 +53,7 @@ class CsvExtractor
   end
 
   def attribute(index)
-    { name: "MyString", value: "MyString", manufacturer: csv_data[1][0],
+    { name: "MyString", value: "MyString", manufacturer: csv_data[index][0],
       model: model_att(index), color: csv_data[index][2], carrier_plan_type: csv_data[index][3],
       quantity: csv_data[index][4], price: csv_data[index][5].to_i }
   end
