@@ -3,6 +3,8 @@ require "csv"
 class CsvExtractor
   def initialize(path: nil)
     @path = path
+    @array = []
+    @index = 1
   end
 
   def valid?
@@ -23,10 +25,8 @@ class CsvExtractor
 
     return update if Inventory.count.eql? 12
 
-    array = []
-    index = 1
-    build_inventories(array, index)
-    array
+    build_inventories(@array, @index)
+    @array
   end
 
   def update
