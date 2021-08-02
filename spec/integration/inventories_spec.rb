@@ -27,6 +27,12 @@ RSpec.describe "Inventories", type: :request do
         post api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_valid.csv") }, headers: headers
         expect(response).to have_http_status(:created)
       end
+
+      it "redirect to index" do
+        headers = { "ACCEPT" => "application/html" }
+        post api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_valid.csv") }, headers: headers
+        redirect_to(api_v1_inventories_path)
+      end
     end
 
     context "when update" do
@@ -57,10 +63,16 @@ RSpec.describe "Inventories", type: :request do
     end
 
     describe "Invalid Csv" do
-      it "create" do
+      it "have status 401" do
         headers = { "ACCEPT" => "application/html" }
         post api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_invalid.csv") }, headers: headers
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it "render upload template" do
+        headers = { "ACCEPT" => "application/html" }
+        post api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_invalid.csv") }, headers: headers
+        render_template upload_api_v1_inventories_path
       end
 
       it "nil csv create" do
