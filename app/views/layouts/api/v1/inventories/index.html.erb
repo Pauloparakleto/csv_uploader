@@ -1,4 +1,5 @@
 <h1>Inventário da Loja</h1>
+<h2><a><%= link_to "Fazer Upload de CSV", upload_api_v1_inventories_path %></a></h2>
 <section>
   <%= search_form_for @q, url: api_v1_inventories_path do |f| %>
 
