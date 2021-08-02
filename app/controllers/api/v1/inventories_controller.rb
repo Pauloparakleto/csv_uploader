@@ -3,7 +3,7 @@ module Api
     class InventoriesController < ApplicationController
       def index
         @inventories = Inventory.all
-        render html: @inventories, response: :ok
+        render template: "layouts/api/v1/inventories/index", locals: {inventories: Inventory.all}, status: :ok
       end
 
       def create
@@ -28,7 +28,7 @@ module Api
 
       def render_response
         if @inventories
-          render json: @inventories, status: :created
+          render template: "layouts/api/v1/inventories/index", locals: {inventories: Inventory.all}, status: :created
         else
           render json: "O Arquivo CSV possui campos em branco.", status: :unprocessable_entity
         end
