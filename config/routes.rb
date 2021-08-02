@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :inventories, only: [:index, :create] do
         collection do
+          post :extract_csv
           post :update_csv
           get :upload
         end
