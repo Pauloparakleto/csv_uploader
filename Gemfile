@@ -32,6 +32,8 @@ gem "rubocop-rails", require: false
 gem "rubocop-performance", require: false
 gem "rubocop-rspec", require: false
 
+gem "ransack"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 

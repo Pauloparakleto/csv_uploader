@@ -2,7 +2,8 @@ module Api
   module V1
     class InventoriesController < ApplicationController
       def index
-        @inventories = Inventory.all
+        @q = Inventory.ransack(params[:q])
+        @inventories = @q.result(distinct: true)
         render template: "layouts/api/v1/inventories/index", locals: { inventories: @inventories }, status: :ok
       end
 
