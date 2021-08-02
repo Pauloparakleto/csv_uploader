@@ -46,6 +46,25 @@ RSpec.describe CsvExtractor do
         expect(last_inventory_price_before).not_to eq(last_inventory_price)
       end
     end
+
+    context "when invalid" do
+      before do
+        params = { csv_file: fixture_file_upload("input_valid.csv") }
+        described_class.new(path: params[:csv_file]).build
+      end
+
+      it "count 12" do
+        params = { csv_file: fixture_file_upload("input_invalid.csv") }
+        described_class.new(path: params[:csv_file]).update
+        expect(Inventory.count).to eq(12)
+      end
+
+      it "update first inventory" do
+        params_update = { csv_file: fixture_file_upload("input_invalid.csv") }
+        result = described_class.new(path: params_update[:csv_file]).update
+        expect(result).to be_nil
+      end
+    end
   end
 
   describe "Valid" do
