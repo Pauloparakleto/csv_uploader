@@ -30,7 +30,7 @@ module Api
         if @inventories
           render json: @inventories, status: :created
         else
-          render json: "O Arquivo CSV possui campos em branco.".to_json, status: :unprocessable_entity
+          render json: "O Arquivo CSV possui campos em branco.", status: :unprocessable_entity
         end
       end
     end
