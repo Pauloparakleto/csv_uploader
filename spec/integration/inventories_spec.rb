@@ -37,21 +37,21 @@ RSpec.describe "Inventories", type: :request do
       it "by csv" do
         headers = { "ACCEPT" => "application/html" }
         post update_csv_api_v1_inventories_url, params: { csv_file: fixture_file_upload("input_valid_update.csv") },
-             headers: headers
+                                                headers: headers
         expect(response).to have_http_status(:ok)
       end
 
       it "by csv invalid message body" do
         headers = { "ACCEPT" => "application/html" }
         post update_csv_api_v1_inventories_url, params: { csv_file: fixture_file_upload("input_invalid.csv") },
-             headers: headers
+                                                headers: headers
         expect(response.body).to eq("O Arquivo CSV possui campos em branco.")
       end
 
       it "by csv invalid status" do
         headers = { "ACCEPT" => "application/html" }
         post update_csv_api_v1_inventories_url, params: { csv_file: fixture_file_upload("input_invalid.csv") },
-             headers: headers
+                                                headers: headers
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
