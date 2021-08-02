@@ -1,5 +1,16 @@
 require "rails_helper"
 require "csv"
+
+def last_inventory_price
+  Inventory.where(manufacturer: "Apple", model: "iPhone SE 16GB", color: "Rose",
+                  carrier_plan_type: "pre", price: 1599).first.price.to_i
+end
+
+def last_inventory_price_before_update
+  Inventory.where(manufacturer: "Apple", model: "iPhone SE 16GB", color: "Space Gray",
+                  carrier_plan_type: "pre", price: 1499).first.price.to_i
+end
+
 RSpec.describe CsvExtractor do
   describe "Update" do
     context "when valid" do
@@ -30,11 +41,9 @@ RSpec.describe CsvExtractor do
 
       it "update last inventory" do
         params = { csv_file: fixture_file_upload("input_valid_update.csv") }
-        last_inventory_price = Inventory.where(manufacturer: "Apple", model: "iPhone SE 16GB", color: "Space Gray",
-                                               carrier_plan_type: "pre", price: 1499).first.price.to_i
+        last_inventory_price_before = last_inventory_price_before_update
         described_class.new(path: params[:csv_file]).update
-        expect(last_inventory_price).not_to eq(Inventory.where(manufacturer: "Apple", model: "iPhone SE 16GB", color: "Rose",
-                                                             carrier_plan_type: "pre", price: 1599).first.price.to_i)
+        expect(last_inventory_price_before).not_to eq(last_inventory_price)
       end
     end
   end
