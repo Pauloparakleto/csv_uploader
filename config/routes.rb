@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :inventories, only: [:index, :create] do
         collection do
           post :update_csv
+          get :upload
         end
       end
     end
