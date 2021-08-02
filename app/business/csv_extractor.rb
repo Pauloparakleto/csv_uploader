@@ -30,21 +30,24 @@ class CsvExtractor
   def update
     return nil unless valid?
 
+    @id = Inventory.first.id
+    @index = 1
     array = []
-    index = 1
-    update_inventories(array, index)
-    array
+    update_inventories(array)
   end
 
-  def update_inventories(array, index)
-    @id = Inventory.first.id
+  def update_inventories(array)
     csv_data.each do |table|
       next if table[0] == "manufacturer"
 
-      array << Inventory.find(@id).update(attributes(index))
-      @id += 1
-      index += 1
+      update_each_and_find_next(array)
     end
+  end
+
+  def update_each_and_find_next(array)
+    array << Inventory.find(@id).update(attributes(@index))
+    @id += 1
+    @index += 1
   end
 
   def attributes(index)
