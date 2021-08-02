@@ -3,7 +3,7 @@ module Api
     class InventoriesController < ApplicationController
       def index
         @inventories = Inventory.all
-        render template: "layouts/api/v1/inventories/index", locals: { inventories: Inventory.all }, status: :ok
+        render template: "layouts/api/v1/inventories/index", locals: { inventories: @inventories }, status: :ok
       end
 
       def create
