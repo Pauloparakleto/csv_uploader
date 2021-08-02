@@ -38,7 +38,7 @@ module Api
 
       def render_response
         if @inventories
-          render template: "layouts/api/v1/inventories/index", locals: { inventories: @inventories }, status: :created
+          redirect_to api_v1_inventories_path, locals: { inventories: @inventories }, status: :created
         else
           render template: "layouts/api/v1/inventories/upload", status: :unprocessable_entity
         end
