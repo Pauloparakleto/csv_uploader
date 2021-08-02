@@ -11,13 +11,26 @@ module Api
         render_response
       end
 
+      def update_csv
+        @inventories = CsvExtractor.new(path: params[:csv_file]).update
+        render_response_update
+      end
+
       private
+
+      def render_response_update
+        if @inventories
+          render json: @inventories, status: :ok
+        else
+          render json: "O Arquivo CSV possui campos em branco.", status: :unprocessable_entity
+        end
+      end
 
       def render_response
         if @inventories
           render json: @inventories, status: :created
         else
-          render json: nil, status: :unprocessable_entity
+          render json: "O Arquivo CSV possui campos em branco.", status: :unprocessable_entity
         end
       end
     end
