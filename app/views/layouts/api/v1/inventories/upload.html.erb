@@ -1,6 +1,6 @@
 <h1>Faça aqui o Upload do seu Arquivo CSV</h1>
 <h2><%= link_to "Já possui Inventário?", api_v1_inventories_path%></h2>
-<%= form_with url: api_v1_inventories_path, multipart: true do |form| %>
+<%= form_with url: extract_csv_api_v1_inventories_path, multipart: true do |form| %>
   <%= form.file_field :csv_file %>
   <%= form.submit "Upload" %>
 <% end %>
