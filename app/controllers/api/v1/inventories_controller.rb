@@ -6,6 +6,12 @@ module Api
         render template: "layouts/api/v1/inventories/index", locals: { inventories: @inventories }, status: :ok
       end
 
+      def extract_csv
+        @inventories = CsvExtractor.new(path: params[:csv_file]).build
+        @inventories = Inventory.all
+        render_response
+      end
+
       def create
         @inventories = CsvExtractor.new(path: params[:csv_file]).build
         render_response
@@ -32,7 +38,7 @@ module Api
 
       def render_response
         if @inventories
-          render template: "layouts/api/v1/inventories/index", locals: { inventories: Inventory.all }, status: :created
+          render template: "layouts/api/v1/inventories/index", locals: { inventories: @inventories }, status: :created
         else
           render template: "layouts/api/v1/inventories/upload", status: :unprocessable_entity
         end
