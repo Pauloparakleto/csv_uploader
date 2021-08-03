@@ -2,7 +2,8 @@
 
 Disclaimer: I'm gonna write the Background in english when the time appears. For now, you have to know it is as described bellow.
 
-The scenario is a virtual market place specialized on sale a few type of phone devises.
+The scenario is a virtual smartphone store where the owner has to periodically renew the stock 
+table with changes in the quantity of the items and such.
 
 # Background
 
