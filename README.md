@@ -62,12 +62,15 @@ Any way, you may delete the data to restart the create workflow by running:
 `rails db:drop db:create db:migrate`
 
 ## Run the server
+Run: `rails webpacker:install`
 
 Run: `rails server`
 
 ## Testing it
 
 At least but also important, run the tests: `rspec`
+
+If your integration test fails with webpack misses configuration warnings, run: `rails webpacker:install`
 
 ## Contributing
 
