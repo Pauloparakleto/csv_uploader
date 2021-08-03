@@ -9,7 +9,6 @@ module Api
 
       def extract_csv
         @inventories = CsvExtractor.new(path: params[:csv_file]).build
-        @inventories = Inventory.all
         render_response
       end
 
@@ -39,9 +38,11 @@ module Api
 
       def render_response
         if @inventories
-          redirect_to api_v1_inventories_path, locals: { inventories: @inventories }, status: :created
+          flash[:notice] = "Upload realizado com sucesso!"
+          redirect_to api_v1_inventories_path, locals: { inventories: Inventory.all }, status: :created
         else
-          render template: "layouts/api/v1/inventories/upload", status: :unprocessable_entity
+          flash[:alert] = "Falha no upload. Arquivo inexistente ou campos em branco!"
+          redirect_back fallback_location: "layouts/api/v1/inventories/upload", status: :unprocessable_entity
         end
       end
     end
