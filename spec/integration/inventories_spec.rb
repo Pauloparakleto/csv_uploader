@@ -2,6 +2,11 @@ require "rails_helper"
 
 RSpec.describe "Inventories", type: :request do
   describe "Templates" do
+    it "gets root to inventories" do
+      get root_path
+      expect(response).to have_http_status(:ok)
+    end
+
     it "gets index" do
       get api_v1_inventories_path
       expect(response).to have_http_status(:ok)
@@ -14,26 +19,27 @@ RSpec.describe "Inventories", type: :request do
   end
 
   describe "Extract CSV Action" do
-
     context "when update" do
       before do
         headers = { "ACCEPT" => "application/html" }
-        post extract_csv_api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_valid.csv") }, headers: headers
+        post extract_csv_api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_valid.csv") },
+                                                  headers: headers
       end
 
       it "update by csv" do
         headers = { "ACCEPT" => "application/html" }
-        post extract_csv_api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_valid_update.csv") }, headers: headers
+        post extract_csv_api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_valid_update.csv") },
+                                                  headers: headers
         expect(response).to have_http_status(:created)
       end
     end
 
     it "create by csv" do
       headers = { "ACCEPT" => "application/html" }
-      post extract_csv_api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_valid.csv") }, headers: headers
+      post extract_csv_api_v1_inventories_path, params: { csv_file: fixture_file_upload("input_valid.csv") },
+                                                headers: headers
       expect(response).to have_http_status(:created)
     end
-
   end
 
   describe "Status Response" do
@@ -66,21 +72,21 @@ RSpec.describe "Inventories", type: :request do
       it "by csv" do
         headers = { "ACCEPT" => "application/html" }
         post update_csv_api_v1_inventories_url, params: { csv_file: fixture_file_upload("input_valid_update.csv") },
-             headers: headers
+                                                headers: headers
         expect(response).to have_http_status(:ok)
       end
 
       it "by csv invalid message body" do
         headers = { "ACCEPT" => "application/html" }
         post update_csv_api_v1_inventories_url, params: { csv_file: fixture_file_upload("input_invalid.csv") },
-             headers: headers
+                                                headers: headers
         expect(response.body).to eq("O Arquivo CSV possui campos em branco.")
       end
 
       it "by csv invalid status" do
         headers = { "ACCEPT" => "application/html" }
         post update_csv_api_v1_inventories_url, params: { csv_file: fixture_file_upload("input_invalid.csv") },
-             headers: headers
+                                                headers: headers
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
