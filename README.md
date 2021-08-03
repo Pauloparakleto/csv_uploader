@@ -55,7 +55,7 @@ to postgre reach the name of my machine.
 Run: `rails db:create db:migrate`
 
 Optionally you might populate the database with initial data: `rails db:seed`.
-However, you will not be able to test the create workflow sense the delete action is not part of the
+However, you will not be able to test the create workflow since the delete action is not part of the
 current release.
 
 Any way, you may delete the data to restart the create workflow by running: 
