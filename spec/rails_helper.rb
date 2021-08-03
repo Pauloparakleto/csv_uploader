@@ -61,4 +61,9 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.after(:suite) do
+    uploads_test_path = Rails.root.join("tmp/storage")
+    FileUtils.rm_rf(Dir[uploads_test_path])
+  end
 end
