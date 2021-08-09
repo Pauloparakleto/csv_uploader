@@ -14,7 +14,7 @@
 !/tmp/.keep
 
 #ignore idea
-/.idea/*
+/.idea/
 /.idea/alive-app.iml
 
 # Ignore pidfiles, but keep the directory.
@@ -38,3 +38,9 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+coverage
+/doc/
+/docs/api/
+/public/
+/hiring.iml
