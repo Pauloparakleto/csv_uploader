@@ -72,6 +72,11 @@ At least but also important, run the tests: `rspec`
 
 If your integration test fails with webpack misses configuration warnings, run: `rails webpacker:install`
 
+## Coverage
+
+![Screenshot from 2021-08-09 18-01-00](https://user-images.githubusercontent.com/52010485/128773925-7aaa3730-7bf9-4fcc-8c32-2353aad7a311.png)
+
+
 ## Contributing
 
 Should I say more? Keep the pipeline green and avoid headache. 
